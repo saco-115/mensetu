@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MENSetsu | 面接対策・ES添削アシスタント</title>
 <style>
-:root{--ink:#29263a;--muted:#716d83;--purple:#7462d9;--purple-dark:#5947bd;--lav:#f2efff;--line:#e8e4f3;--bg:#faf9ff;--white:#fff;--green:#27866a;--orange:#b86228}
+:root{--ink:#29263a;--muted:#716d83;--purple:#7462d9;--purple-dark:#5947bd;--lav:#f2efff;--line:#e8e4f3;--bg:#faf9ff;--white:#fff;--green:#27866a}
 *{box-sizing:border-box}
 body{margin:0;background:linear-gradient(180deg,#f5f2ff 0,#fbfaff 340px,#faf9ff 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);line-height:1.65}
 .wrap{max-width:960px;margin:auto;padding:28px 18px 60px}
@@ -18,16 +18,7 @@ header{display:flex;justify-content:space-between;align-items:center;gap:12px;ma
 h1{font-size:clamp(26px,5vw,40px);line-height:1.25;margin:10px 0;color:#28243b}
 .hero p{max-width:600px;margin:0 auto;color:var(--muted)}
 
-/* タブナビゲーション */
-.tab-nav{display:flex;gap:8px;justify-content:center;margin-bottom:22px}
-.tab-btn{background:#e8e4f3;color:var(--muted);border:none;border-radius:12px;padding:10px 20px;font-weight:750;cursor:pointer;transition:all .15s}
-.tab-btn.active{background:var(--purple);color:#fff;box-shadow:0 4px 12px #7462d933}
-
-/* タブコンテンツの表示制御 */
-.tab-content{display:none !important;}
-.tab-content.active{display:block !important;}
-
-.panel{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,4vw,30px);box-shadow:0 12px 35px rgba(77,59,140,.07);margin:18px 0}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,4vw,30px);box-shadow:0 12px 35px rgba(77,59,140,.07);margin:24px 0}
 .panel-head{display:flex;gap:12px;align-items:center;margin-bottom:18px}
 .step{display:grid;place-items:center;width:38px;height:38px;flex-shrink:0;border-radius:12px;background:var(--lav);color:var(--purple-dark);font-weight:800}
 h2{font-size:19px;margin:0}
@@ -47,6 +38,7 @@ button:active{transform:scale(.98)}
 .primary:hover{background:var(--purple-dark)}
 .secondary{background:var(--lav);color:var(--purple-dark)}
 .ghost{background:#f5f4f9;color:#5e596f}
+
 .results{display:none}
 .results.show{display:block}
 .question{border:1px solid var(--line);border-radius:15px;padding:16px;margin:12px 0;background:#fff}
@@ -56,13 +48,12 @@ button:active{transform:scale(.98)}
 .question h3{font-size:16px;margin:10px 0 8px}
 .question p{font-size:13px;color:var(--muted);margin:0}
 .answerbox{margin-top:12px}
-.answerbox textarea{min-height:90px}
 .checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .check{display:flex;align-items:flex-start;gap:9px;padding:12px;border-radius:12px;background:#f8f7fc;font-size:13px;cursor:pointer}
 .check input{width:17px;height:17px;margin:3px 0 0;accent-color:var(--purple)}
 .score{margin-top:14px;background:var(--lav);padding:14px;border-radius:13px;color:var(--purple-dark);font-weight:750}
 
-/* ES添削結果のスタイル */
+/* ES添削結果 */
 .es-result-box{background:#f8f7fc;border-radius:14px;padding:16px;margin:12px 0;border-left:4px solid var(--purple)}
 .es-result-box h4{margin:0 0 8px 0;font-size:15px;color:var(--purple-dark)}
 .es-badge{display:inline-block;font-size:11px;font-weight:800;background:var(--lav);color:var(--purple-dark);padding:3px 8px;border-radius:6px;margin-bottom:6px}
@@ -72,8 +63,7 @@ button:active{transform:scale(.98)}
 
 footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
 .notice{background:#fff9e9;border:1px solid #f0e1b4;padding:12px 14px;border-radius:12px;font-size:12px;color:#715b27;margin-top:16px}
-
-@media(max-width:620px){.grid,.checklist{grid-template-columns:1fr}.wrap{padding:18px 13px 40px}.hero{padding-top:10px}header{margin-bottom:16px}.panel{border-radius:17px}}
+@media(max-width:620px){.grid,.checklist{grid-template-columns:1fr}.wrap{padding:18px 13px 40px}}
 </style>
 </head>
 <body>
@@ -86,19 +76,54 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
 <section class="hero">
 <div class="eyebrow">YOUR INTERVIEW & ES PARTNER</div>
 <h1>自分の言葉で、<br>自信を持って伝えよう。</h1>
-<p>経験から面接質問を作る練習ツール、およびES（エントリーシート）の添削・構成チェックツールです。</p>
+<p>面接質問の作成・練習と、エントリーシート（ES・ガクチカ）の添削がこれひとつでできます。</p>
 </section>
 
-<!-- タブ切り替えボタン -->
-<div class="tab-nav">
-  <button class="tab-btn active" data-target="interviewTab">🎤 面接質問をつくる</button>
-  <button class="tab-btn" data-target="esTab">📝 ESを添削・診断する</button>
+<!-- ================= 01. ES・ガクチカ添削セクション ================= -->
+<section class="panel" style="border: 2px solid var(--purple);">
+<div class="panel-head">
+  <div class="step" style="background:var(--purple); color:#fff;">ES</div>
+  <div>
+    <h2>エントリーシート・ガクチカ添削</h2>
+    <p class="sub">作成した文章を貼り付けると、構成や伝わりやすさを自動で診断します。</p>
+  </div>
 </div>
+<div class="field">
+  <label for="esType">添削する文章の種類</label>
+  <select id="esType">
+    <option value="gakuchika">ガクチカ（学生時代に力を入れたこと）</option>
+    <option value="selfpr">自己PR</option>
+    <option value="motivation">志望動機</option>
+  </select>
+</div>
+<div class="field">
+  <label for="esText">ESの文章を入力・貼り付け <span class="char-count" id="charCount">0文字</span></label>
+  <textarea id="esText" placeholder="例：私が学生時代に最も力を入れたことは、サークルでの新入生勧誘活動です。例年、加入者が減っており…"></textarea>
+  <div class="hint">文字数が自動でカウントされ、PREP法に基づいたアドバイスが表示されます。</div>
+</div>
+<div class="actions">
+  <button class="primary" id="esReviewBtn">ESを添削・診断する →</button>
+  <button class="secondary" id="esExampleBtn">添削の入力例を入れる</button>
+  <button class="ghost" id="esClearBtn">クリア</button>
+</div>
+</section>
 
-<!-- ================= 01. 面接練習タブ ================= -->
-<div id="interviewTab" class="tab-content active">
+<!-- 添削結果 -->
+<section class="panel results" id="esResults">
+<div class="panel-head"><div class="step">診断</div><div><h2>ES添削・アドバイス結果</h2><p class="sub">より魅力的に伝えるためのポイントを確認しましょう。</p></div></div>
+<div id="esAdviceContainer"></div>
+</section>
+
+
+<!-- ================= 02. 面接質問作成セクション ================= -->
 <section class="panel">
-<div class="panel-head"><div class="step">01</div><div><h2>あなたの経験を教えてね</h2><p class="sub">入力した内容はこのブラウザ内で処理されます。</p></div></div>
+<div class="panel-head">
+  <div class="step">面接</div>
+  <div>
+    <h2>面接質問メーカー</h2>
+    <p class="sub">経験エピソードから、面接官に聞かれやすい質問を生成します。</p>
+  </div>
+</div>
 <div class="grid">
 <div class="field">
   <label for="topic">練習したいテーマ</label>
@@ -124,14 +149,16 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
 </div>
 </section>
 
+<!-- 面接質問結果 -->
 <section class="panel results" id="results">
-<div class="panel-head"><div class="step">02</div><div><h2>あなた向けの練習質問</h2><p class="sub">質問を選んで、声に出して答えてみよう。</p></div></div>
+<div class="panel-head"><div class="step">質問</div><div><h2>あなた向けの練習質問</h2><p class="sub">質問を選んで、声に出して答えてみよう。</p></div></div>
 <div id="questionList"></div>
 <div class="notice">入力内容のキーワードをもとにした練習用の質問です。実際の面接での質問を保証するものではありません。</div>
 </section>
 
+<!-- セルフチェックセクション -->
 <section class="panel">
-<div class="panel-head"><div class="step">03</div><div><h2>回答のセルフチェック</h2><p class="sub">答えたあとにチェックを入れて、伝わりやすさを確認しよう。</p></div></div>
+<div class="panel-head"><div class="step">確認</div><div><h2>回答のセルフチェック</h2><p class="sub">答えたあとにチェックを入れて、伝わりやすさを確認しよう。</p></div></div>
 <div class="checklist" id="checks">
 <label class="check"><input type="checkbox">最初に結論を伝えている</label>
 <label class="check"><input type="checkbox">自分がした行動を具体的に説明している</label>
@@ -146,37 +173,6 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
   <button class="ghost" id="print">印刷・PDF保存</button>
 </div>
 </section>
-</div>
-
-<!-- ================= 02. ES添削タブ ================= -->
-<div id="esTab" class="tab-content">
-<section class="panel">
-<div class="panel-head"><div class="step">ES</div><div><h2>エントリーシート・ガクチカ添削</h2><p class="sub">作成した文章を貼り付けると、構成や伝わりやすさを自動で診断します。</p></div></div>
-<div class="field">
-  <label for="esType">添削する文章の種類</label>
-  <select id="esType">
-    <option value="gakuchika">ガクチカ（学生時代に力を入れたこと）</option>
-    <option value="selfpr">自己PR</option>
-    <option value="motivation">志望動機</option>
-  </select>
-</div>
-<div class="field">
-  <label for="esText">ESの文章を入力・貼り付け <span class="char-count" id="charCount">0文字</span></label>
-  <textarea id="esText" placeholder="例：私が学生時代に最も力を入れたことは、サークルでの新入生勧誘活動です。例年、加入者が減っており…"></textarea>
-  <div class="hint">文字数が自動でカウントされ、PREP法（結論→理由→具体例→結論）に基づいたアドバイスが表示されます。</div>
-</div>
-<div class="actions">
-  <button class="primary" id="esReviewBtn">ESを添削・診断する →</button>
-  <button class="secondary" id="esExampleBtn">添削の入力例を入れる</button>
-  <button class="ghost" id="esClearBtn">クリア</button>
-</div>
-</section>
-
-<section class="panel results" id="esResults">
-<div class="panel-head"><div class="step">診断</div><div><h2>ES添削・アドバイス結果</h2><p class="sub">より魅力的に伝えるためのポイントを確認しましょう。</p></div></div>
-<div id="esAdviceContainer"></div>
-</section>
-</div>
 
 <footer>© MENSetsu — 就活練習用の試作品です。選考結果や内定を保証するものではありません。</footer>
 </div>
@@ -184,96 +180,15 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
 <script>
 const \$ = id => document.getElementById(id);
 
-// タブ切り替えロジック
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    
-    btn.classList.add('active');
-    const targetId = btn.dataset.target;
-    const targetElem = \$(targetId);
-    if(targetElem) {
-      targetElem.classList.add('active');
-    }
-  });
-});
-
-// --- 面接質問メーカーのロジック ---
-const examples = {
-  gakuchika: {
-    base:["その活動に取り組もうと思ったきっかけは何ですか？","活動の中で、最も大きな課題は何でしたか？","課題を解決するために、あなた自身が工夫したことは何ですか？","取り組みの結果、どのような変化がありましたか？","この経験から学んだことを、入社後どう活かしますか？"],
-    deep:["その方法を選んだ理由は何ですか？","周囲の人から反対や協力が得られないことはありましたか？","もう一度取り組むなら、何を変えますか？"]
-  },
-  selfpr:{
-    base:["あなたの強みを一言で教えてください。","その強みが発揮された具体的な場面は？","強みを発揮するために意識していることは何ですか？","その強みが裏目に出た経験はありますか？","入社後、どのような場面で強みを活かせますか？"],
-    deep:["その強みを裏付ける、具体的な行動や結果はありますか？","友人や周囲の人から、どんな人だと言われますか？","その強みをさらに伸ばすために何をしていますか？"]
-  },
-  motivation:{
-    base:["この業界に興味を持ったきっかけは何ですか？","当社を志望する理由を教えてください。","他社ではなく当社で実現したいことは何ですか？","会社選びで大切にしている軸は何ですか？","入社後に挑戦したいことは何ですか？"],
-    deep:["その理由につながる具体的な経験はありますか？","当社のどの事業や取り組みに関心がありますか？","希望と異なる仕事を任されたらどうしますか？"]
-  },
-  teamwork:{
-    base:["チームではどのような役割を担いましたか？","意見が対立したとき、どう対応しましたか？","周囲を巻き込むために工夫したことは？","チームの成果にどのように貢献しましたか？","チームで働くうえで大切にしていることは？"],
-    deep:["あなたがいなかった場合、何が違ったと思いますか？","協力を得るのが難しかった相手にどう働きかけましたか？","次に同じ状況になったら何を改善しますか？"]
-  },
-  failure:{
-    base:["これまでに経験した失敗や困難を教えてください。","そのとき、何が原因だったと考えましたか？","状況を変えるために、具体的に何をしましたか？","周囲に相談したり、助けを求めたりしましたか？","その経験から得た学びは何ですか？"],
-    deep:["失敗をどのように受け止め、気持ちを切り替えましたか？","同じ失敗を防ぐために、今も続けていることは？","その学びを仕事でどう活かせると思いますか？"]
-  }
-};
-
-function makeQuestions(){
-  const topic=\$("topic").value, exp=$("experience").value.trim(), job=$("job").value.trim();
-  if(exp.length<8){alert("経験をもう少し詳しく入力してね（8文字以上がおすすめ）。");\$("experience").focus();return;}
-  const bank=examples[topic];
-  const keywords=[...new Set((exp.match(/[一-龯ぁ-んァ-ンA-Za-z0-9]{2,}/g)||[]).filter(w=>!["そして","そのため","ました","でした","自分自身","すること","ことです","あります"].includes(w)))].slice(0,3);
-  const custom = keywords.length ? [
-    `「${keywords[0]}」について、具体的にどのような行動をしましたか？`,
-    `「${keywords[0]}」に取り組む中で、どんな難しさがありましたか？`,
-    `その経験でのあなたの工夫を、${keywords[1] ? `「\${keywords[1]}」という点も含めて` : "具体的に"}説明してください。`
-  ] : [];
-  let qs=[...bank.base,...bank.deep,...custom];
-  if(job) qs.unshift(`志望する${job}で、この経験をどのように活かせると思いますか？`);
-  const list=\$("questionList");list.innerHTML="";
-  qs.forEach((q,i)=>{
-    const div=document.createElement("article");div.className="question";
-    const top=document.createElement("div");top.className="q-top";
-    const tag=document.createElement("span");tag.className="tag";tag.textContent=i<bank.base.length?"基本質問":i<bank.base.length+bank.deep.length?"深掘り質問":"経験に合わせた質問";
-    const num=document.createElement("span");num.className="q-num";num.textContent=`Q${i+1}`;
-    top.append(tag,num);
-    const h=document.createElement("h3");h.textContent=q;
-    const p=document.createElement("p");p.textContent="ヒント：結論 → 具体的な行動 → 結果・学び、の順に話してみよう。";
-    div.append(top,h,p);
-    const box=document.createElement("div");box.className="answerbox";
-    const ta=document.createElement("textarea");ta.placeholder="ここに回答をメモ（この画面内だけに保存されます）";ta.setAttribute("aria-label",q+"への回答");
-    box.append(ta);div.append(box);list.append(div);
-  });
-  $("results").classList.add("show");$("results").scrollIntoView({behavior:"smooth",block:"start"});
-  saveData();
-}
-
-\$("generate").addEventListener("click",makeQuestions);
-$("example").addEventListener("click",()=>{$("topic").value="gakuchika";$("job").value="IT業界";$("experience").value="飲食店のアルバイトで、新人スタッフが仕事を覚えるまで時間がかかることが課題でした。そこで、作業手順を短いチェックリストにまとめ、忙しくない時間に一緒に確認するようにしました。その結果、新人から質問しやすくなったと言われ、教え方を相手に合わせる大切さを学びました。"; saveData();});
-\$("clear").addEventListener("click",()=>{$("experience").value="";$("job").value="";$("results").classList.remove("show");$("questionList").innerHTML=""; localStorage.removeItem("mensetsu_exp");});
-
-function updateScore(){const all=[...document.querySelectorAll("#checks input")];const n=all.filter(x=>x.checked).length;\$("score").textContent=`チェックした項目：${n} / ${all.length}`; saveData();}
-document.querySelectorAll("#checks input").forEach(x=>x.addEventListener("change",updateScore));
-\$("resetChecks").addEventListener("click",()=>{document.querySelectorAll("#checks input").forEach(x=>x.checked=false);updateScore();});
-\$("print").addEventListener("click",()=>window.print());
-
-
-// --- ES添削・診断機能のロジック ---
+// --- ES添削・診断機能 ---
 const esTextElem = \$("esText");
 const charCountElem = \$("charCount");
 
 esTextElem.addEventListener("input", () => {
-  const len = esTextElem.value.length;
-  charCountElem.textContent = `${len}文字`;
-  saveData();
+  charCountElem.textContent = `${esTextElem.value.length}文字`;
 });
 
-function reviewES() {
+\$("esReviewBtn").addEventListener("click", () => {
   const text = esTextElem.value.trim();
   if(text.length < 20) {
     alert("文章が短すぎます。もう少し詳しく入力してください（20文字以上推奨）。");
@@ -289,75 +204,106 @@ function reviewES() {
   const hasResult = text.includes("結果") || text.includes("学び") || text.includes("変化") || text.includes("売上") || text.includes("％") || text.includes("人");
   const len = text.length;
 
-  let adviceHTML = "";
-
-  adviceHTML += `<div class="es-result-box">
-    <span class="es-badge">文字数チェック</span>
-    <h4>現在：${len}文字</h4>
-    <p style="font-size:13px;color:var(--muted);">一般的なESの制限（多くは200〜400文字程度）に合わせて要約または詳細化を意識しましょう。</p>
-  </div>`;
-
-  adviceHTML += `<div class="es-result-box">
-    <span class="es-badge">構成・論理性診断</span>
-    <h4>PREP法チェックポイント</h4>
-    <ul class="advice-list">
-      <li>結論ファースト（最初に何を頑張ったか）： ${hasConclusion ? "✅ 良好です" : "⚠️ 冒頭で結論（強みや取り組んだこと）を明確に述べましょう"}</li>
-      <li>具体的な行動（どう工夫したか）： ${hasAction ? "✅ 具体的なアクションが含まれています" : "⚠️ あなたがどのような行動・工夫をしたかをさらに詳しく書きましょう"}</li>
-      <li>数値や変化（どのような成果が出たか）： ${hasResult ? "✅ 成果や定量的表現が含まれています" : "⚠️ 周囲の変化や数字（人数・割合など）を入れると説得力が増します"}</li>
-    </ul>
-  </div>`;
-
-  adviceHTML += `<div class="es-result-box">
-    <span class="es-badge">さらに良くするコツ</span>
-    <h4>伝わりやすさを高めるアドバイス</h4>
-    <p style="font-size:13px;color:var(--ink);">「私が力を入れたことは〇〇です。課題として〇〇がありましたが、××という工夫をした結果、〜〜という成果につながり、この経験から〜〜を学びました」という王道の構成（STAR法・PREP法）に沿っているか確認してみてください。</p>
-    <div class="rewrite-text">
-      <strong>💡 ワンポイント添削：</strong><br>
-      「〜〜という問題に対し、私は【誰に・何を・どうしたか】を意識して行動しました。その結果、〇〇が改善され、〜〜を学ぶことができました」という型に落とし込むと、一気に面接官が理解しやすい文章になります。
+  let adviceHTML = `
+    <div class="es-result-box">
+      <span class="es-badge">文字数チェック</span>
+      <h4>現在：${len}文字</h4>
+      <p style="font-size:13px;color:var(--muted);">一般的なESの制限（多くは200〜400文字程度）に合わせて調整しましょう。</p>
     </div>
-  </div>`;
+    <div class="es-result-box">
+      <span class="es-badge">構成・論理性診断</span>
+      <h4>PREP法チェックポイント</h4>
+      <ul class="advice-list">
+        <li>結論ファースト： ${hasConclusion ? "✅ 良好です" : "⚠️ 冒頭で結論（強みや取り組んだこと）を明確に述べましょう"}</li>
+        <li>具体的な行動： ${hasAction ? "✅ 具体的なアクションが含まれています" : "⚠️ あなたがどのような行動・工夫をしたかを詳しく書きましょう"}</li>
+        <li>結果や成果： ${hasResult ? "✅ 成果や定量的表現が含まれています" : "⚠️ 周囲の変化や数字（人数・割合など）を入れると説得力が増します"}</li>
+      </ul>
+    </div>
+    <div class="es-result-box">
+      <span class="es-badge">さらに良くするコツ</span>
+      <h4>伝わりやすさを高めるアドバイス</h4>
+      <p style="font-size:13px;color:var(--ink);">「私が力を入れたことは〇〇です。課題として〇〇がありましたが、××という工夫をした結果、〜〜という成果につながり、この経験から〜〜を学びました」の型を意識してみてください。</p>
+    </div>
+  `;
 
   container.innerHTML = adviceHTML;
   \$("esResults").classList.add("show");
   \$("esResults").scrollIntoView({behavior:"smooth",block:"start"});
-  saveData();
-}
+});
 
-\$("esReviewBtn").addEventListener("click", reviewES);
 \$("esExampleBtn").addEventListener("click", () => {
   \$("esType").value = "gakuchika";
   esTextElem.value = "私が学生時代に最も力を入れたことは、サークルでの新入生勧誘活動です。例年、加入者が減っており存続の危機でした。そこで私は、SNSでの発信頻度を週2回から毎日へ増やし、新入生向けの質問箱を設置して不安を解消する取り組みを行いました。その結果、例年の1.5倍となる25名の新入部員を獲得することができました。この経験から、課題の原因を分析し、相手目線に立ったアプローチを継続する重要性を学びました。";
   charCountElem.textContent = `${esTextElem.value.length}文字`;
-  saveData();
 });
+
 \$("esClearBtn").addEventListener("click", () => {
   esTextElem.value = "";
   charCountElem.textContent = "0文字";
   \$("esResults").classList.remove("show");
   \$("esAdviceContainer").innerHTML = "";
-  localStorage.removeItem("mensetsu_es");
 });
 
 
-// --- ローカルストレージ自動保存 ---
-function saveData() {
-  localStorage.setItem("mensetsu_topic", \$("topic").value);
-  localStorage.setItem("mensetsu_job", \$("job").value);
-  localStorage.setItem("mensetsu_exp", \$("experience").value);
-  localStorage.setItem("mensetsu_estype", \$("esType").value);
-  localStorage.setItem("mensetsu_estext", esTextElem.value);
-}
-
-window.addEventListener("load", () => {
-  if(localStorage.getItem("mensetsu_topic")) \$("topic").value = localStorage.getItem("mensetsu_topic");
-  if(localStorage.getItem("mensetsu_job")) \$("job").value = localStorage.getItem("mensetsu_job");
-  if(localStorage.getItem("mensetsu_exp")) \$("experience").value = localStorage.getItem("mensetsu_exp");
-  if(localStorage.getItem("mensetsu_estype")) \$("esType").value = localStorage.getItem("mensetsu_estype");
-  if(localStorage.getItem("mensetsu_estext")) {
-    esTextElem.value = localStorage.getItem("mensetsu_estext");
-    charCountElem.textContent = `${esTextElem.value.length}文字`;
+// --- 面接質問メーカー ---
+const examples = {
+  gakuchika: {
+    base:["その活動に取り組もうと思ったきっかけは何ですか？","活動の中で、最も大きな課題は何でしたか？","課題を解決するために、あなた自身が工夫したことは何ですか？","取り組みの結果、どのような変化がありましたか？","この経験から学んだことを、入社後どう活かしますか？"],
+    deep:["その方法を選んだ理由は何ですか？","周囲の人から反対や協力が得られないことはありましたか？","もう一度取り組むなら、何を変えますか？"]
+  },
+  selfpr:{
+    base:["あなたの強みを一言で教えてください。","その強みが発揮された具体的な場面は？","強みを発揮するために意識していることは何ですか？","その強みが裏目に出た経験はありますか？","入社後、どのような場面で強みを活かせますか？"],
+    deep:["その強みを裏付ける、具体的な行動や結果はありますか？","友人や周囲の人から、どんな人だと言われますか？","その強みをさらに伸ばすために何をしていますか？"]
+  },
+  motivation:{
+    base:["この業界に興味を持ったきっかけは何ですか？","当社を志望する理由を教えてください。","他社ではなく当社で実現したいことは何ですか？","会社選びで大切にしている軸は何ですか？","入社後に挑戦したいことは何ですか？"],
+    deep:["その理由につながる具体的な経験はありますか？","当社のどの事業や取り組みに関心がありますか？","希望と異なる仕事を任されたらどうしますか？"]
+  },
+  teamwork:{
+    base:["チームではどのような役割を担いましたか？","意見が対立したとき、どう対応しましたか？","周囲を巻き込むために工夫したことは？","チームの成果にどのように貢献しましたか？","チームで働くうえで大切にしていることは？"],
+    deep:["あなたがいなかった場合、何が違ったと思いますか？","協力を得るのが难しかった相手にどう働きかけましたか？","次に同じ状況になったら何を改善しますか？"]
+  },
+  failure:{
+    base:["これまでに経験した失敗や困難を教えてください。","そのとき、何が原因だったと考えましたか？","状況を変えるために、具体的に何をしましたか？","周囲に相談したり、助けを求めたりしましたか？","その経験から得た学びは何ですか？"],
+    deep:["失敗をどのように受け止め、気持ちを切り替えましたか？","同じ失敗を防ぐために、今も続けていることは？","その学びを仕事でどう活かせると思いますか？"]
   }
+};
+
+\$("generate").addEventListener("click", () => {
+  const topic=\$("topic").value, exp=$("experience").value.trim(), job=$("job").value.trim();
+  if(exp.length<8){alert("経験をもう少し詳しく入力してね（8文字以上がおすすめ）。");\$("experience").focus();return;}
+  const bank=examples[topic];
+  let qs=[...bank.base,...bank.deep];
+  if(job) qs.unshift(`志望する${job}で、この経験をどのように活かせると思いますか？`);
+  const list=\$("questionList"); list.innerHTML="";
+  qs.forEach((q,i)=>{
+    const div=document.createElement("article"); div.className="question";
+    div.innerHTML = `<div class="q-top"><span class="tag">質問</span><span class="q-num">Q${i+1}</span></div><h3>${q}</h3><p>ヒント：結論 → 具体的な行動 → 結果・学び、の順に話してみよう。</p><div class="answerbox"><textarea placeholder="ここに回答をメモ"></textarea></div>`;
+    list.append(div);
+  });
+  \$("results").classList.add("show");
+  \$("results").scrollIntoView({behavior:"smooth",block:"start"});
 });
+
+\$("example").addEventListener("click",()=>{
+  \$("topic").value="gakuchika";
+  \$("job").value="IT業界";
+  \$("experience").value="飲食店のアルバイトで、新人スタッフが仕事を覚えるまで時間がかかることが課題でした。そこで、作業手順を短いチェックリストにまとめ、忙しくない時間に一緒に確認するようにしました。その結果、新人から質問しやすくなったと言われ、教え方を相手に合わせる大切さを学びました。";
+});
+
+\$("clear").addEventListener("click",()=>{
+  $("experience").value=""; $("job").value=""; $("results").classList.remove("show"); $("questionList").innerHTML="";
+});
+
+// セルフチェック
+const updateScore = () => {
+  const all=[...document.querySelectorAll("#checks input")];
+  const n=all.filter(x=>x.checked).length;
+  \$("score").textContent=`チェックした項目：${n} / ${all.length}`;
+};
+document.querySelectorAll("#checks input").forEach(x=>x.addEventListener("change", updateScore));
+\$("resetChecks").addEventListener("click",()=>{document.querySelectorAll("#checks input").forEach(x=>x.checked=false); updateScore();});
+\$("print").addEventListener("click",()=>window.print());
 </script>
 </body>
 </html>
