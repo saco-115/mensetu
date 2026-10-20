@@ -102,9 +102,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
   <div class="hint">文字数が自動でカウントされ、PREP法に基づいたアドバイスが表示されます。</div>
 </div>
 <div class="actions">
-  <button class="primary" id="esReviewBtn">ESを添削・診断する →</button>
-  <button class="secondary" id="esExampleBtn">添削の入力例を入れる</button>
-  <button class="ghost" id="esClearBtn">クリア</button>
+  <button class="primary" id="esReviewBtn" type="button">ESを添削・診断する →</button>
+  <button class="secondary" id="esExampleBtn" type="button">添削の入力例を入れる</button>
+  <button class="ghost" id="esClearBtn" type="button">クリア</button>
 </div>
 </section>
 
@@ -143,9 +143,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
   <div class="hint">個人名や企業の機密情報は入力しないでね。</div>
 </div>
 <div class="actions">
-  <button class="primary" id="generate">面接質問を作る →</button>
-  <button class="secondary" id="example">入力例を入れる</button>
-  <button class="ghost" id="clear">クリア</button>
+  <button class="primary" id="generate" type="button">面接質問を作る →</button>
+  <button class="secondary" id="example" type="button">入力例を入れる</button>
+  <button class="ghost" id="clear" type="button">クリア</button>
 </div>
 </section>
 
@@ -169,8 +169,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
 </div>
 <div class="score" id="score">チェックした項目：0 / 6</div>
 <div class="actions">
-  <button class="secondary" id="resetChecks">チェックをリセット</button>
-  <button class="ghost" id="print">印刷・PDF保存</button>
+  <button class="secondary" id="resetChecks" type="button">チェックをリセット</button>
+  <button class="ghost" id="print" type="button">印刷・PDF保存</button>
 </div>
 </section>
 
@@ -184,65 +184,77 @@ const \$ = id => document.getElementById(id);
 const esTextElem = \$("esText");
 const charCountElem = \$("charCount");
 
-esTextElem.addEventListener("input", () => {
-  charCountElem.textContent = `${esTextElem.value.length}文字`;
-});
+if(esTextElem) {
+  esTextElem.addEventListener("input", () => {
+    charCountElem.textContent = `${esTextElem.value.length}文字`;
+  });
+}
 
-\$("esReviewBtn").addEventListener("click", () => {
-  const text = esTextElem.value.trim();
-  if(text.length < 20) {
-    alert("文章が短すぎます。もう少し詳しく入力してください（20文字以上推奨）。");
-    esTextElem.focus();
-    return;
-  }
+const esReviewBtn = \$("esReviewBtn");
+if(esReviewBtn) {
+  esReviewBtn.addEventListener("click", () => {
+    const text = esTextElem.value.trim();
+    if(text.length === 0) {
+      alert("ESの文章を入力してください。");
+      esTextElem.focus();
+      return;
+    }
 
-  const container = \$("esAdviceContainer");
-  container.innerHTML = "";
+    const container = \$("esAdviceContainer");
+    container.innerHTML = "";
 
-  const hasConclusion = text.includes("最も") || text.includes("です") || text.includes("力は") || text.includes("理由は");
-  const hasAction = text.includes("取り組") || text.includes("工夫") || text.includes("実行") || text.includes("行い");
-  const hasResult = text.includes("結果") || text.includes("学び") || text.includes("変化") || text.includes("売上") || text.includes("％") || text.includes("人");
-  const len = text.length;
+    const hasConclusion = text.includes("最も") || text.includes("です") || text.includes("力は") || text.includes("理由は") || text.includes("こと");
+    const hasAction = text.includes("取り組") || text.includes("工夫") || text.includes("実行") || text.includes("行い") || text.includes("ため");
+    const hasResult = text.includes("結果") || text.includes("学び") || text.includes("変化") || text.includes("売上") || text.includes("％") || text.includes("人") || text.includes("得ら");
+    const len = text.length;
 
-  let adviceHTML = `
-    <div class="es-result-box">
-      <span class="es-badge">文字数チェック</span>
-      <h4>現在：${len}文字</h4>
-      <p style="font-size:13px;color:var(--muted);">一般的なESの制限（多くは200〜400文字程度）に合わせて調整しましょう。</p>
-    </div>
-    <div class="es-result-box">
-      <span class="es-badge">構成・論理性診断</span>
-      <h4>PREP法チェックポイント</h4>
-      <ul class="advice-list">
-        <li>結論ファースト： ${hasConclusion ? "✅ 良好です" : "⚠️ 冒頭で結論（強みや取り組んだこと）を明確に述べましょう"}</li>
-        <li>具体的な行動： ${hasAction ? "✅ 具体的なアクションが含まれています" : "⚠️ あなたがどのような行動・工夫をしたかを詳しく書きましょう"}</li>
-        <li>結果や成果： ${hasResult ? "✅ 成果や定量的表現が含まれています" : "⚠️ 周囲の変化や数字（人数・割合など）を入れると説得力が増します"}</li>
-      </ul>
-    </div>
-    <div class="es-result-box">
-      <span class="es-badge">さらに良くするコツ</span>
-      <h4>伝わりやすさを高めるアドバイス</h4>
-      <p style="font-size:13px;color:var(--ink);">「私が力を入れたことは〇〇です。課題として〇〇がありましたが、××という工夫をした結果、〜〜という成果につながり、この経験から〜〜を学びました」の型を意識してみてください。</p>
-    </div>
-  `;
+    let adviceHTML = `
+      <div class="es-result-box">
+        <span class="es-badge">文字数チェック</span>
+        <h4>現在：${len}文字</h4>
+        <p style="font-size:13px;color:var(--muted);">一般的なESの制限（多くは200〜400文字程度）に合わせて調整しましょう。</p>
+      </div>
+      <div class="es-result-box">
+        <span class="es-badge">構成・論理性診断</span>
+        <h4>PREP法チェックポイント</h4>
+        <ul class="advice-list">
+          <li>結論ファースト： ${hasConclusion ? "✅ 良好です" : "⚠️ 冒頭で結論（強みや取り組んだこと）を明確に述べましょう"}</li>
+          <li>具体的な行動： ${hasAction ? "✅ 具体的なアクションが含まれています" : "⚠️ あなたがどのような行動・工夫をしたかを詳しく書きましょう"}</li>
+          <li>結果や成果： ${hasResult ? "✅ 成果や定量的表現が含まれています" : "⚠️ 周囲の変化や数字（人数・割合など）を入れると説得力が増します"}</li>
+        </ul>
+      </div>
+      <div class="es-result-box">
+        <span class="es-badge">さらに良くするコツ</span>
+        <h4>伝わりやすさを高めるアドバイス</h4>
+        <p style="font-size:13px;color:var(--ink);">「私が力を入れたことは〇〇です。課題として〇〇がありましたが、××という工夫をした結果、〜〜という成果につながり、この経験から〜〜を学びました」の型を意識してみてください。</p>
+      </div>
+    `;
 
-  container.innerHTML = adviceHTML;
-  \$("esResults").classList.add("show");
-  \$("esResults").scrollIntoView({behavior:"smooth",block:"start"});
-});
+    container.innerHTML = adviceHTML;
+    const resSec = \$("esResults");
+    resSec.classList.add("show");
+    resSec.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+}
 
-\$("esExampleBtn").addEventListener("click", () => {
-  \$("esType").value = "gakuchika";
-  esTextElem.value = "私が学生時代に最も力を入れたことは、サークルでの新入生勧誘活動です。例年、加入者が減っており存続の危機でした。そこで私は、SNSでの発信頻度を週2回から毎日へ増やし、新入生向けの質問箱を設置して不安を解消する取り組みを行いました。その結果、例年の1.5倍となる25名の新入部員を獲得することができました。この経験から、課題の原因を分析し、相手目線に立ったアプローチを継続する重要性を学びました。";
-  charCountElem.textContent = `${esTextElem.value.length}文字`;
-});
+const esExampleBtn = \$("esExampleBtn");
+if(esExampleBtn) {
+  esExampleBtn.addEventListener("click", () => {
+    \$("esType").value = "gakuchika";
+    esTextElem.value = "私が学生時代に最も力を入れたことは、サークルでの新入生勧誘活動です。例年、加入者が減っており存続の危機でした。そこで私は、SNSでの発信頻度を週2回から毎日へ増やし、新入生向けの質問箱を設置して不安を解消する取り組みを行いました。その結果、例年の1.5倍となる25名の新入部員を獲得することができました。この経験から、課題の原因を分析し、相手目線に立ったアプローチを継続する重要性を学びました。";
+    charCountElem.textContent = `${esTextElem.value.length}文字`;
+  });
+}
 
-\$("esClearBtn").addEventListener("click", () => {
-  esTextElem.value = "";
-  charCountElem.textContent = "0文字";
-  \$("esResults").classList.remove("show");
-  \$("esAdviceContainer").innerHTML = "";
-});
+const esClearBtn = \$("esClearBtn");
+if(esClearBtn) {
+  esClearBtn.addEventListener("click", () => {
+    esTextElem.value = "";
+    charCountElem.textContent = "0文字";
+    \$("esResults").classList.remove("show");
+    \$("esAdviceContainer").innerHTML = "";
+  });
+}
 
 
 // --- 面接質問メーカー ---
@@ -261,7 +273,7 @@ const examples = {
   },
   teamwork:{
     base:["チームではどのような役割を担いましたか？","意見が対立したとき、どう対応しましたか？","周囲を巻き込むために工夫したことは？","チームの成果にどのように貢献しましたか？","チームで働くうえで大切にしていることは？"],
-    deep:["あなたがいなかった場合、何が違ったと思いますか？","協力を得るのが难しかった相手にどう働きかけましたか？","次に同じ状況になったら何を改善しますか？"]
+    deep:["あなたがいなかった場合、何が違ったと思いますか？","協力を得るのが難しかった相手にどう働きかけましたか？","次に同じ状況になったら何を改善しますか？"]
   },
   failure:{
     base:["これまでに経験した失敗や困難を教えてください。","そのとき、何が原因だったと考えましたか？","状況を変えるために、具体的に何をしましたか？","周囲に相談したり、助けを求めたりしましたか？","その経験から得た学びは何ですか？"],
@@ -269,31 +281,41 @@ const examples = {
   }
 };
 
-\$("generate").addEventListener("click", () => {
-  const topic=\$("topic").value, exp=$("experience").value.trim(), job=$("job").value.trim();
-  if(exp.length<8){alert("経験をもう少し詳しく入力してね（8文字以上がおすすめ）。");\$("experience").focus();return;}
-  const bank=examples[topic];
-  let qs=[...bank.base,...bank.deep];
-  if(job) qs.unshift(`志望する${job}で、この経験をどのように活かせると思いますか？`);
-  const list=\$("questionList"); list.innerHTML="";
-  qs.forEach((q,i)=>{
-    const div=document.createElement("article"); div.className="question";
-    div.innerHTML = `<div class="q-top"><span class="tag">質問</span><span class="q-num">Q${i+1}</span></div><h3>${q}</h3><p>ヒント：結論 → 具体的な行動 → 結果・学び、の順に話してみよう。</p><div class="answerbox"><textarea placeholder="ここに回答をメモ"></textarea></div>`;
-    list.append(div);
+const generateBtn = \$("generate");
+if(generateBtn) {
+  generateBtn.addEventListener("click", () => {
+    const topic=\$("topic").value, exp=$("experience").value.trim(), job=$("job").value.trim();
+    if(exp.length<4){alert("経験をもう少し入力してね。");\$("experience").focus();return;}
+    const bank=examples[topic];
+    let qs=[...bank.base,...bank.deep];
+    if(job) qs.unshift(`志望する${job}で、この経験をどのように活かせると思いますか？`);
+    const list=\$("questionList"); list.innerHTML="";
+    qs.forEach((q,i)=>{
+      const div=document.createElement("article"); div.className="question";
+      div.innerHTML = `<div class="q-top"><span class="tag">質問</span><span class="q-num">Q${i+1}</span></div><h3>${q}</h3><p>ヒント：結論 → 具体的な行動 → 結果・学び、の順に話してみよう。</p><div class="answerbox"><textarea placeholder="ここに回答をメモ"></textarea></div>`;
+      list.append(div);
+    });
+    const resSec = \$("results");
+    resSec.classList.add("show");
+    resSec.scrollIntoView({behavior:"smooth",block:"start"});
   });
-  \$("results").classList.add("show");
-  \$("results").scrollIntoView({behavior:"smooth",block:"start"});
-});
+}
 
-\$("example").addEventListener("click",()=>{
-  \$("topic").value="gakuchika";
-  \$("job").value="IT業界";
-  \$("experience").value="飲食店のアルバイトで、新人スタッフが仕事を覚えるまで時間がかかることが課題でした。そこで、作業手順を短いチェックリストにまとめ、忙しくない時間に一緒に確認するようにしました。その結果、新人から質問しやすくなったと言われ、教え方を相手に合わせる大切さを学びました。";
-});
+const exampleBtn = \$("example");
+if(exampleBtn) {
+  exampleBtn.addEventListener("click",()=>{
+    \$("topic").value="gakuchika";
+    \$("job").value="IT業界";
+    \$("experience").value="飲食店のアルバイトで、新人スタッフが仕事を覚えるまで時間がかかることが課題でした。そこで、作業手順を短いチェックリストにまとめ、忙しくない時間に一緒に確認するようにしました。その結果、新人から質問しやすくなったと言われ、教え方を相手に合わせる大切さを学びました。";
+  });
+}
 
-\$("clear").addEventListener("click",()=>{
-  $("experience").value=""; $("job").value=""; $("results").classList.remove("show"); $("questionList").innerHTML="";
-});
+const clearBtn = \$("clear");
+if(clearBtn) {
+  clearBtn.addEventListener("click",()=>{
+    $("experience").value=""; $("job").value=""; $("results").classList.remove("show"); $("questionList").innerHTML="";
+  });
+}
 
 // セルフチェック
 const updateScore = () => {
@@ -302,8 +324,14 @@ const updateScore = () => {
   \$("score").textContent=`チェックした項目：${n} / ${all.length}`;
 };
 document.querySelectorAll("#checks input").forEach(x=>x.addEventListener("change", updateScore));
-\$("resetChecks").addEventListener("click",()=>{document.querySelectorAll("#checks input").forEach(x=>x.checked=false); updateScore();});
-\$("print").addEventListener("click",()=>window.print());
+const resetChecksBtn = \$("resetChecks");
+if(resetChecksBtn) {
+  resetChecksBtn.addEventListener("click",()=>{document.querySelectorAll("#checks input").forEach(x=>x.checked=false); updateScore();});
+}
+const printBtn = \$("print");
+if(printBtn) {
+  printBtn.addEventListener("click",()=>window.print());
+}
 </script>
 </body>
 </html>
